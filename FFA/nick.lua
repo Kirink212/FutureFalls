@@ -103,8 +103,11 @@ function nick_load()
     --------------------------------------------------
     bullet = collider:addRectangle (256,182,32,16)
     ------------------------------------------------
-    Enemy1 = collider:addRectangle (5120,704,128,128)
-    Enemy1S = collider:addRectangle (4544,704,576,32)
+    Enemy1 = collider:addRectangle (5120,768,64,64)
+    Enemy1S = collider:addRectangle (4544,768,576,32)
+    --------------------------------------------------
+    Enemy2 = collider:addRectangle (5824,64,64,64)
+    Enemy2S = collider:addRectangle (5440,64,384,32)
 
     --escada1 = collider:addRectangle(256,512,64,320)
 
@@ -372,6 +375,9 @@ function nick_draw()
     Enemy1:draw("line")
     Enemy1S:draw("line")
 
+    Enemy2:draw("line")
+    Enemy2S:draw("line")
+
     --bullet:draw("line")
     
     
@@ -392,7 +398,7 @@ function nick_draw()
 
    local i1x,i1y = Enemy1:center()
    if HPinimigo > 0 then
-    love.graphics.draw(inimigo1,i1x-64,i1y-64)
+    love.graphics.draw(inimigo1,i1x-32,i1y-32)
   end
 end
 function setupPlayer(x,y)
