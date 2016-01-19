@@ -75,9 +75,10 @@ function nick_load()
     floor32 = collider:addRectangle(8576,640,64,64)
     floor33 = collider:addRectangle(8640,704,64,64)
     floor34 = collider:addRectangle(8704,768,64,64)
-    floor34 = collider:addRectangle(8704,768,64,64)
 
-    
+    wall1 = collider:addRectangle(5760,192,64,256)
+
+    -----------------------------------------------
     
     pit1 = collider:addRectangle(3584,948,896,12)
     pit2 = collider:addRectangle(6592,884,1216,12)
@@ -370,6 +371,23 @@ function nick_draw()
     floor18:draw("line")
     floor19:draw("line")
     floor20:draw("line")  
+     floor21:draw("line")
+    floor22:draw("line")
+    floor23:draw("line")
+    floor34:draw("line")
+    floor25:draw("line")  
+     floor26:draw("line")
+    floor27:draw("line")
+    floor28:draw("line")
+    floor29:draw("line")
+    floor30:draw("line")  
+     floor31:draw("line")
+    floor32:draw("line")
+    floor33:draw("line")
+    floor34:draw("line") 
+    
+    
+    
 
     float1:draw("line")
     float2:draw("line")
@@ -408,6 +426,8 @@ function nick_draw()
     Enemy2Bullet:draw("line")
 
     --bullet:draw("line")
+    
+    wall1:draw("line")
     
     
 
@@ -541,7 +561,7 @@ function check_right_collide(playerR)
     or playerR:collidesWith(floor8) or playerR:collidesWith(floor9) or playerR:collidesWith(floor10) or playerR:collidesWith(floor11) or playerR:collidesWith(floor12) or playerR:collidesWith(floor13) or playerR:collidesWith(floor14) 
     or playerR:collidesWith(floor15) or playerR:collidesWith(floor16) or playerR:collidesWith(floor17) or playerR:collidesWith(floor18) or playerR:collidesWith(floor19) or playerR:collidesWith(floor20) or playerR:collidesWith(floor21)
     or playerR:collidesWith(floor22) or playerR:collidesWith(floor23) or playerR:collidesWith(floor24) or playerR:collidesWith(floor25) or playerR:collidesWith(floor26) or playerR:collidesWith(floor27) or playerR:collidesWith(floor28) 
-    or playerR:collidesWith(floor29) or playerR:collidesWith(floor30) or playerR:collidesWith(floor31) or playerR:collidesWith(floor32) or playerR:collidesWith(floor32) or playerR:collidesWith(floor33) or playerR:collidesWith(floor34)
+    or playerR:collidesWith(floor29) or playerR:collidesWith(floor30) or playerR:collidesWith(floor31) or playerR:collidesWith(floor32) or playerR:collidesWith(floor32) or playerR:collidesWith(floor33) or playerR:collidesWith(floor34) or playerR:collidesWith(wall1)
     
     then
     return true
