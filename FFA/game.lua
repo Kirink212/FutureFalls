@@ -22,7 +22,7 @@ function game_load()
 end
 function game_update(dt)
   if gamestate == 0 then
-    menu_music:play()
+    --menu_music:play()
     if love.keyboard.isDown('return') and pressionado == 1 then
       gamestate = 1
     elseif love.keyboard.isDown('return') and pressionado == 3 then
@@ -30,22 +30,23 @@ function game_update(dt)
     end
   end
   if gamestate == 1 and pausado == 0 then
-    playing_music:play()
-    menu_music:stop()
+    --playing_music:play()
+    --menu_music:stop()
     player_update(dt)
     nick_update(dt)
   end
 end
 function game_draw()
+  local px,py = playerB:center()
   if gamestate == 1 then
     --mapa_draw()
     nick_draw()
     player_draw()
     if pausado == 1 then
-      love.graphics.draw(pause, 200, 400)
       love.graphics.setColor(0,0,0, 100)
-      love.graphics.rectangle("fill",0,0, 1280, 960)
+      love.graphics.rectangle("fill", 0, 0, 12800, 960)
       love.graphics.setColor(255,255,255)
+      love.graphics.draw(pause, px + 300, 200, 0, 3, 3)
       --love.graphics.print(tostring(pausado), 400, 500)
     end
   elseif gamestate == 0 then
