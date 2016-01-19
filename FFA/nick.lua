@@ -13,8 +13,12 @@ local escada = false
 local dir = -1
 local obj1 = false
 local tiro = false
+local turret = true
 local HP = 2
 local HPinimigo = 1
+local HPinimigo2 = 1
+
+require "bullet"
 
 function nick_load()
     love.window.setTitle("Future Falls : Ascension")
@@ -108,6 +112,8 @@ function nick_load()
     --------------------------------------------------
     Enemy2 = collider:addRectangle (5824,64,64,64)
     Enemy2S = collider:addRectangle (5440,64,384,32)
+    Enemy2Bullet = collider:addRectangle (5760,96,64,16)
+    --------------------------------------------------
 
     --escada1 = collider:addRectangle(256,512,64,320)
 
@@ -132,8 +138,10 @@ function nick_load()
     background3 = love.graphics.newImage("bg.png")
     obj1Img = love.graphics.newImage("obj1.png")
     bulletImg = love.graphics.newImage("bullet.png")
-    inimigo1 = love.graphics.newImage("inimigo1.png") 
-
+    inimigo1 = love.graphics.newImage("inimigo1.png")
+    inimigo2 = love.graphics.newImage("inimigo2.png") 
+    missile = love.graphics.newImage("missile.png")
+   
     love.graphics.setBackgroundColor(31,75,89)
     --allSolidTiles = findSolidTiles(map)
 end
@@ -169,6 +177,25 @@ function nick_update(dt)
     update_bullet(bullet,ppx,ppy,tiro,dt)
     collision_bullet(bullet,playerB)
     update_camera(ppx,death,dt)
+
+    ----------------------------------INIMIGO 2 ATIRANDO (TURRET)
+    enemy_bullet(Enemy2Bullet,turret,dt,HPinimigo2)
+
+   local e2x,e2y = Enemy2:center()
+   local e2bx,e2by = Enemy2Bullet:center()
+   if e2x - e2bx > 384 then
+    turret = false
+   else
+    turret = true
+   end
+   if bullet:collidesWith(Enemy2) then
+    HPinimigo2 = HPinimigo2 -1
+   end
+
+
+   if Enemy2Bullet:collidesWith(playerR) and HPinimigo2 > 0 then
+    death = true
+   end
 
     --Move a caixa pra cima caso o player esteja em uma   Plaforma !!!
 
@@ -245,6 +272,7 @@ function nick_update(dt)
         HP = HP + 2
         obj1 = false
         tiro = false
+        Enemy1:moveTo(5120,768)
         death = false     
       end 
       if obj1 then 
@@ -307,7 +335,7 @@ function nick_update(dt)
   end
 
   if playerR:collidesWith(Enemy1S) then
-    Enemy1:move(-40*dt,0)
+    Enemy1:move(-70*dt,0)
   end
 end
 function nick_draw()
@@ -332,7 +360,7 @@ function nick_draw()
     floor9:draw("line")
     floor10:draw("line")
     floor11:draw("line")
-    floor12:draw("fill")
+    floor12:draw("line")
     floor13:draw("line")
     --floor14:draw("line")
     --floor15:draw("line")
@@ -377,6 +405,7 @@ function nick_draw()
 
     Enemy2:draw("line")
     Enemy2S:draw("line")
+    Enemy2Bullet:draw("line")
 
     --bullet:draw("line")
     
@@ -400,7 +429,20 @@ function nick_draw()
    if HPinimigo > 0 then
     love.graphics.draw(inimigo1,i1x-32,i1y-32)
   end
+  local e2bx,e2by = Enemy2Bullet:center()
+  if turret and HPinimigo2 > 0 then
+    love.graphics.draw(missile,e2bx-32,e2by-8)
+  end
+  local e2x,e2y = Enemy2:center()
+  if HPinimigo2 > 0 then
+    love.graphics.draw(inimigo2,e2x-32,e2y-32)
 end
+
+
+end
+
+
+
 function setupPlayer(x,y)
     
     playerR = collider:addRectangle(x+28,y-50,4,100)
@@ -577,6 +619,8 @@ function collision_bullet(bullet,playerB)
  end
 
 end
+
+
 
 function update_tetoY(playerx)
   local playerx = playerx
