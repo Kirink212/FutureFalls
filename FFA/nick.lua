@@ -12,6 +12,7 @@ local death = false
 local escada = false
 local dir = -1
 local obj1 = false
+local obj2 = false
 local tiro = false
 local turret = true
 local HP = 2
@@ -77,11 +78,13 @@ function nick_load()
     floor34 = collider:addRectangle(8704,768,64,64)
 
     wall1 = collider:addRectangle(5760,192,64,256)
+    wall2 = collider:addRectangle(5376,0,64,256)
+
 
     -----------------------------------------------
     
     pit1 = collider:addRectangle(3584,948,896,12)
-    pit2 = collider:addRectangle(6592,884,1216,12)
+    pit2 = collider:addRectangle(6592,948,1216,12)
     -----------------------------------------------
     float1 = collider:addRectangle(1984,640,128,32)
     float2 = collider:addRectangle(2432,640,128,32)
@@ -94,6 +97,11 @@ function nick_load()
     float8 = collider:addRectangle(2816,384,128,32)
     float9 = collider:addRectangle(2624,320,128,32)
     float10 = collider:addRectangle(2816,256,128,32)
+
+    float11 = collider:addRectangle(6784,256,128,32)
+    float12 = collider:addRectangle(7232,320,128,32)
+    float13 = collider:addRectangle(7552,256,128,32)
+    float14 = collider:addRectangle(7936,256,128,32)
     -----------------------------------------------
     move1UP = collider:addRectangle(2752,256,192,20)
     move1DOWN = collider:addRectangle(2752,570,192,20)
@@ -105,6 +113,7 @@ function nick_load()
     elevator = collider:addRectangle(8768,768,192,64)
     --------------------------------------------------
     obj1Hit = collider:addRectangle(3264,704,64,64)
+    obj2Hit = collider:addRectangle(5632,512,64,64)
     --------------------------------------------------
     bullet = collider:addRectangle (256,182,32,16)
     ------------------------------------------------
@@ -112,7 +121,6 @@ function nick_load()
     Enemy1S = collider:addRectangle (4544,768,576,32)
     --------------------------------------------------
     Enemy2 = collider:addRectangle (5824,64,64,64)
-    Enemy2S = collider:addRectangle (5440,64,384,32)
     Enemy2Bullet = collider:addRectangle (5760,96,64,16)
     --------------------------------------------------
 
@@ -138,11 +146,12 @@ function nick_load()
     
     background3 = love.graphics.newImage("bg.png")
     obj1Img = love.graphics.newImage("obj1.png")
+    obj2Img = love.graphics.newImage("obj2.png")
     bulletImg = love.graphics.newImage("bullet.png")
     inimigo1 = love.graphics.newImage("inimigo1.png")
     inimigo2 = love.graphics.newImage("inimigo2.png") 
     missile = love.graphics.newImage("missile.png")
-   
+    victorylol = love.graphics.newImage("victory.png")
     love.graphics.setBackgroundColor(31,75,89)
     --allSolidTiles = findSolidTiles(map)
 end
@@ -167,7 +176,9 @@ function nick_update(dt)
     if playerL:collidesWith(obj1Hit) then
       obj1 = true
     end
- 
+    if playerR:collidesWith(obj2Hit) then
+      obj2 = true
+    end 
   
 
     local ppx,ppyold = playerB:center()
@@ -175,10 +186,11 @@ function nick_update(dt)
  
     local ppy = ppyold +2
 
-    update_bullet(bullet,ppx,ppy,tiro,dt)
+    update_bullet(bullet,ppx,ppy,tiro,dt,obj2)
     collision_bullet(bullet,playerB)
+    if not victory then
     update_camera(ppx,death,dt)
-
+    end
     ----------------------------------INIMIGO 2 ATIRANDO (TURRET)
     enemy_bullet(Enemy2Bullet,turret,dt,HPinimigo2)
 
@@ -243,6 +255,15 @@ function nick_update(dt)
     update_playerYFLOOR24(playerB,floor24)
     update_playerYFLOOR25(playerB,floor25)
 
+    update_playerYFLOOR26(playerB,floor26)
+    update_playerYFLOOR27(playerB,floor27)
+    update_playerYFLOOR28(playerB,floor28)
+    update_playerYFLOOR29(playerB,floor29)
+    update_playerYFLOOR30(playerB,floor30)
+    update_playerYFLOOR31(playerB,floor31)
+    update_playerYFLOOR32(playerB,floor32)
+    update_playerYFLOOR33(playerB,floor33)
+    update_playerYFLOOR34(playerB,floor34)
 
     update_playerYFLOAT1(playerB,float1)
     update_playerYFLOAT2(playerB,float2)
@@ -255,9 +276,16 @@ function nick_update(dt)
     update_playerYFLOAT8(playerB,float8)
     update_playerYFLOAT9(playerB,float9)
     update_playerYFLOAT10(playerB,float10)
+
+    update_playerYFLOAT11(playerB,float11)
+    update_playerYFLOAT12(playerB,float12)
+    update_playerYFLOAT13(playerB,float13)
+    update_playerYFLOAT14(playerB,float14)
+
+    update_playerYFIM(playerB,elevator)
   --update_playerYMOVE1(playerB,move1,dt,move1UP,move1DOWN,dir)
 
-    if playerB:collidesWith(pit1) then
+    if playerB:collidesWith(pit1) or playerB:collidesWith(pit2) then
       death = true
     end
     
@@ -276,12 +304,18 @@ function nick_update(dt)
         Enemy1:moveTo(5120,768)
         death = false     
       end 
-      if obj1 then 
+      if obj1 and not obj2 then 
         movePlayerTo(3264,704)
         update_camera(ppx,death,dt)
         tiro = false
         death = false 
       end
+      if obj2 then
+        movePlayerTo(5632,512)
+        update_camera(ppx,death,dt)
+        tiro = false
+        death = false
+       end
     end
 
 -----Movimentação lateral, trava se playerL/playerR batem em algo
@@ -317,7 +351,7 @@ function nick_update(dt)
       death = true
       victory = false
     end
-    if love.keyboard.isDown("z") then
+    if love.keyboard.isDown("z") and obj2 then
       tiro = true
     end
 
@@ -334,6 +368,9 @@ function nick_update(dt)
       death = true
     end
   end
+  if playerB:collidesWith(elevator) then
+    victory = true
+  end
 
   if playerR:collidesWith(Enemy1S) then
     Enemy1:move(-70*dt,0)
@@ -349,6 +386,8 @@ function nick_draw()
     map:draw()
 
     ---Area para desenhar todas as Hitbox
+    
+    --[[
 
     floor1:draw("line")
     floor2:draw("line")
@@ -371,17 +410,17 @@ function nick_draw()
     floor18:draw("line")
     floor19:draw("line")
     floor20:draw("line")  
-     floor21:draw("line")
+    floor21:draw("line")
     floor22:draw("line")
     floor23:draw("line")
     floor34:draw("line")
     floor25:draw("line")  
-     floor26:draw("line")
+    floor26:draw("line")
     floor27:draw("line")
     floor28:draw("line")
     floor29:draw("line")
     floor30:draw("line")  
-     floor31:draw("line")
+    floor31:draw("line")
     floor32:draw("line")
     floor33:draw("line")
     floor34:draw("line") 
@@ -400,6 +439,12 @@ function nick_draw()
     float8:draw("line")
     float9:draw("line")
     float10:draw("line")
+
+    float11:draw("line")
+    float12:draw("line")
+    float13:draw("line")
+    float14:draw("line")
+
     
 
     --move1UP:draw("fill")
@@ -418,27 +463,40 @@ function nick_draw()
     obj1Hit:draw("line")
 
     pit1:draw("line")
+    pit2:draw("line")
     Enemy1:draw("line")
     Enemy1S:draw("line")
 
     Enemy2:draw("line")
-    Enemy2S:draw("line")
     Enemy2Bullet:draw("line")
 
-    --bullet:draw("line")
+    elevator:draw("fill")
     
     wall1:draw("line")
     
-    
+    ]]--
 
     local px,py = playerB:center()
-    love.graphics.print(px,px,10)
+
+    --[[    love.graphics.print(px,px,10)
     love.graphics.print(py+2,px,20)
     love.graphics.print(tx,px,30)
     love.graphics.print(tostring(obj1),px,40)
     love.graphics.print(tostring(tiro),px,50)
+    ]]--
+
+
     local obx,oby = obj1Hit:center()
-   love.graphics.draw(obj1Img,obx-32,oby-32)
+    if not obj1 then
+    love.graphics.draw(obj1Img,obx-32,oby-32)
+    end
+    local obj2x,obj2y = obj2Hit:center()
+    if not obj2 then
+    love.graphics.draw(obj2Img,obj2x-32,obj2y-32)
+    end
+
+
+
 
    local bx, by = bullet:center()
    if tiro then
@@ -456,6 +514,9 @@ function nick_draw()
   local e2x,e2y = Enemy2:center()
   if HPinimigo2 > 0 then
     love.graphics.draw(inimigo2,e2x-32,e2y-32)
+  end
+  if victory then
+    love.graphics.draw(victorylol,px-600,py-600)
 end
 
 
@@ -469,8 +530,8 @@ function setupPlayer(x,y)
     playerL = collider:addRectangle(x-32,y-50,4,100)
     playerU = collider:addRectangle(x-28,y-64,56,4)
     playerB = collider:addRectangle(x-16,y+60,36,4)
-    player_speedR = 400
-    player_speedL = 400
+    player_speedR = 300
+    player_speedL = 300
 end
 function updatePlayerUB(dt)
   
@@ -509,7 +570,9 @@ function check_bottom_collide(playerB)
     or playerB:collidesWith(float2) or playerB:collidesWith(float3) or playerB:collidesWith(floor7) or playerB:collidesWith(float6) or playerB:collidesWith(float7) or playerB:collidesWith(float8) or playerB:collidesWith(float9)
     or playerB:collidesWith(float10) or playerB:collidesWith(floor9)or playerB:collidesWith(floor10) or playerB:collidesWith(floor11) or playerB:collidesWith(floor12) or playerB:collidesWith(floor13) or playerB:collidesWith(floor14)
     or playerB:collidesWith(floor16) or playerB:collidesWith(floor17)or playerB:collidesWith(floor18) or playerB:collidesWith(floor19) or playerB:collidesWith(floor20) or playerB:collidesWith(floor21) or playerB:collidesWith(floor22)
-    or playerB:collidesWith(floor23) or playerB:collidesWith(floor24)or playerB:collidesWith(floor24) or playerB:collidesWith(float4) or playerB:collidesWith(float5)
+    or playerB:collidesWith(floor23) or playerB:collidesWith(floor24)or playerB:collidesWith(floor24) or playerB:collidesWith(float4) or playerB:collidesWith(float5) or playerB:collidesWith(floor25) or playerB:collidesWith(floor26)
+    or playerB:collidesWith(floor27) or playerB:collidesWith(floor28) or playerB:collidesWith(floor29) or playerB:collidesWith(floor30) or playerB:collidesWith(floor31) or playerB:collidesWith(floor32) or playerB:collidesWith(floor33)
+    or playerB:collidesWith(floor34) or playerB:collidesWith(float11) or playerB:collidesWith(float12) or playerB:collidesWith(float13) or playerB:collidesWith(float14)
        then
         return true
     else
@@ -547,7 +610,7 @@ function check_left_collide(playerL)
     or playerL:collidesWith(floor15) or playerL:collidesWith(floor16) or playerL:collidesWith(floor17) or playerL:collidesWith(floor18) or playerL:collidesWith(floor19) or playerL:collidesWith(floor20) or playerL:collidesWith(floor21)
     or playerL:collidesWith(floor22) or playerL:collidesWith(floor23) or playerL:collidesWith(floor24) or playerL:collidesWith(floor25) or playerL:collidesWith(floor26) or playerL:collidesWith(floor27) or playerL:collidesWith(floor28) 
     or playerL:collidesWith(floor29) or playerL:collidesWith(floor30) or playerL:collidesWith(floor31) or playerL:collidesWith(floor32) or playerL:collidesWith(floor32) or playerL:collidesWith(floor33) or playerL:collidesWith(floor34)  
-
+    or playerL:collidesWith(wall2)
       then
     return true
 else
@@ -561,7 +624,8 @@ function check_right_collide(playerR)
     or playerR:collidesWith(floor8) or playerR:collidesWith(floor9) or playerR:collidesWith(floor10) or playerR:collidesWith(floor11) or playerR:collidesWith(floor12) or playerR:collidesWith(floor13) or playerR:collidesWith(floor14) 
     or playerR:collidesWith(floor15) or playerR:collidesWith(floor16) or playerR:collidesWith(floor17) or playerR:collidesWith(floor18) or playerR:collidesWith(floor19) or playerR:collidesWith(floor20) or playerR:collidesWith(floor21)
     or playerR:collidesWith(floor22) or playerR:collidesWith(floor23) or playerR:collidesWith(floor24) or playerR:collidesWith(floor25) or playerR:collidesWith(floor26) or playerR:collidesWith(floor27) or playerR:collidesWith(floor28) 
-    or playerR:collidesWith(floor29) or playerR:collidesWith(floor30) or playerR:collidesWith(floor31) or playerR:collidesWith(floor32) or playerR:collidesWith(floor32) or playerR:collidesWith(floor33) or playerR:collidesWith(floor34) or playerR:collidesWith(wall1)
+    or playerR:collidesWith(floor29) or playerR:collidesWith(floor30) or playerR:collidesWith(floor31) or playerR:collidesWith(floor32) or playerR:collidesWith(floor32) or playerR:collidesWith(floor33) or playerR:collidesWith(floor34) 
+    or playerR:collidesWith(wall1)
     
     then
     return true
@@ -604,8 +668,8 @@ function update_camera(ppx,death,dt)
     if love.keyboard.isDown("left") and (ppx < 1000 or ppx > 1000) and not check_left_collide(playerL) then 
       tx = tx + 550*dt 
     end
-  if tx < -6000 then
-    tx = -6000
+  if tx < -7680 then
+    tx = -7680
    end 
   if tx > 0 then
     tx = 0
@@ -617,7 +681,10 @@ function update_camera(ppx,death,dt)
     end
       if obj1 then
       tx = -2800
-    end   
+    end
+      if obj2 then
+      tx = -5050
+      end   
     end
 end
 
@@ -750,25 +817,48 @@ function update_tetoY(playerx)
   if playerx > 5696 and playerB:collidesWith(floor24) then
     moveTeto(playerx,128+pulo128)
   end
- if playerx > 6336 and playerB:collidesWith(floor25) then
+  if playerx > 6336 and playerB:collidesWith(floor25) then
     moveTeto(playerx,192+pulo128)
   end
-
-
-
-
-
-  --[[
-
-    floor26 = collider:addRectangle(6464,320,128,640)
-    floor27 = collider:addRectangle(7808,512,192,448)
-    floor28 = collider:addRectangle(8000,384,384,128)
-    floor29 = collider:addRectangle(8384,448,64,64)
-    floor30 = collider:addRectangle(8448,512,64,64)
-    floor31 = collider:addRectangle(8512,576,64,64)
-    floor32 = collider:addRectangle(8576,640,64,64)
-    floor33 = collider:addRectangle(8640,704,64,64)
-    floor34 = collider:addRectangle(8704,768,64,64)
-    floor34 = collider:addRectangle(8704,768,64,64) ]]--
+  if playerx > 6464 and playerB:collidesWith(floor26) then
+    moveTeto(playerx,320+pulo128)
+  end
+  if playerx > 7808 and playerB:collidesWith(floor27) then
+    moveTeto(playerx,512+pulo128)
+  end
+  if playerx > 8000 and playerB:collidesWith(floor28) then
+    moveTeto(playerx,384+pulo128)
+  end
+  if playerx > 8384 and playerB:collidesWith(floor29) then
+    moveTeto(playerx,448+pulo128)
+  end
+  if playerx > 8448 and playerB:collidesWith(floor30) then
+    moveTeto(playerx,512+pulo128)
+  end
+  if playerx > 8512 and playerB:collidesWith(floor31) then
+    moveTeto(playerx,576+pulo128)
+  end
+  if playerx > 8576 and playerB:collidesWith(floor32) then
+    moveTeto(playerx,640+pulo128)
+  end
+  if playerx > 8640 and playerB:collidesWith(floor33) then
+    moveTeto(playerx,704+pulo128)
+  end
+  if playerx > 8704 and playerB:collidesWith(floor34) then
+    moveTeto(playerx,768+pulo128)
+  end
+  if playerx > 6784 and playerB:collidesWith(float11) then
+    moveTeto(playerx,256+pulo128)
+  end
+  if playerx > 7104 and playerB:collidesWith(float12) then
+    moveTeto(playerx,320+pulo128)
+  end
+  if playerx > 7424 and playerB:collidesWith(float13) then
+    moveTeto(playerx,256+pulo128)
+  end
+  if playerx > 7808 and playerB:collidesWith(float14) then
+    moveTeto(playerx,256+pulo128)
+  end
 
 end
+

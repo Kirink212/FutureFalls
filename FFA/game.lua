@@ -22,7 +22,7 @@ function game_load()
 end
 function game_update(dt)
   if gamestate == 0 then
-    --menu_music:play()
+    menu_music:play()
     if love.keyboard.isDown('return') and pressionado == 1 then
       gamestate = 1
     elseif love.keyboard.isDown('return') and pressionado == 3 then
@@ -30,8 +30,8 @@ function game_update(dt)
     end
   end
   if gamestate == 1 and pausado == 0 then
-    --playing_music:play()
-    --menu_music:stop()
+    playing_music:play()
+    menu_music:stop()
     player_update(dt)
     nick_update(dt)
   end

@@ -655,6 +655,260 @@ function update_playerYFLOAT5(playerB,float5)
   end
 end
 
+function update_playerYFLOOR26(playerB,floor26)
+  local playerB = playerB
+  local floor26 = floor26
+
+  local ppx,ppyold = playerB:center() 
+  local ppy = ppyold + 2
+
+  if playerB:collidesWith(floor26) then
+    gravity = 0
+    local abs = ppy-320
+    if abs > 0 then
+      movePlayerY(-abs)
+    end
+  else
+    gravity = 600
+  end
+end
+
+function update_playerYFLOOR27(playerB,floor27)
+  local playerB = playerB
+  local floor27 = floor27
+
+  local ppx,ppyold = playerB:center() 
+  local ppy = ppyold + 2
+
+  if playerB:collidesWith(floor27) then
+    gravity = 0
+    local abs = ppy-512
+    if abs > 0 then
+      movePlayerY(-abs)
+    end
+  else
+    gravity = 600
+  end
+end
+
+function update_playerYFLOOR28(playerB,floor28)
+  local playerB = playerB
+  local floor28 = floor28
+
+  local ppx,ppyold = playerB:center() 
+  local ppy = ppyold + 2
+
+  if playerB:collidesWith(floor28) then
+    gravity = 0
+    local abs = ppy-384
+    if abs > 0 then
+      movePlayerY(-abs)
+    end
+  else
+    gravity = 600
+  end
+end
+
+function update_playerYFLOOR29(playerB,floor29)
+  local playerB = playerB
+  local floor29 = floor29
+
+  local ppx,ppyold = playerB:center() 
+  local ppy = ppyold + 2
+
+  if playerB:collidesWith(floor29) then
+    gravity = 0
+    local abs = ppy-448
+    if abs > 0 then
+      movePlayerY(-abs)
+    end
+  else
+    gravity = 600
+  end
+end
+
+function update_playerYFLOOR30(playerB,floor30)
+  local playerB = playerB
+  local floor30 = floor30
+
+  local ppx,ppyold = playerB:center() 
+  local ppy = ppyold + 2
+
+  if playerB:collidesWith(floor30) then
+    gravity = 0
+    local abs = ppy-512
+    if abs > 0 then
+      movePlayerY(-abs)
+    end
+  else
+    gravity = 600
+  end
+end
+
+function update_playerYFLOOR31(playerB,floor31)
+  local playerB = playerB
+  local floor31 = floor31
+
+  local ppx,ppyold = playerB:center() 
+  local ppy = ppyold + 2
+
+  if playerB:collidesWith(floor31) then
+    gravity = 0
+    local abs = ppy-576
+    if abs > 0 then
+      movePlayerY(-abs)
+    end
+  else
+    gravity = 600
+  end
+end
+
+
+function update_playerYFLOOR32(playerB,floor32)
+  local playerB = playerB
+  local floor32 = floor32
+
+  local ppx,ppyold = playerB:center() 
+  local ppy = ppyold + 2
+
+  if playerB:collidesWith(floor32) then
+    gravity = 0
+    local abs = ppy-640
+    if abs > 0 then
+      movePlayerY(-abs)
+    end
+  else
+    gravity = 600
+  end
+end
+
+
+function update_playerYFLOOR33(playerB,floor33)
+  local playerB = playerB
+  local floor33 = floor33
+
+  local ppx,ppyold = playerB:center() 
+  local ppy = ppyold + 2
+
+  if playerB:collidesWith(floor33) then
+    gravity = 0
+    local abs = ppy-704
+    if abs > 0 then
+      movePlayerY(-abs)
+    end
+  else
+    gravity = 600
+  end
+end
+
+function update_playerYFLOOR34(playerB,floor34)
+  local playerB = playerB
+  local floor34 = floor34
+
+  local ppx,ppyold = playerB:center() 
+  local ppy = ppyold + 2
+
+  if playerB:collidesWith(floor34) then
+    gravity = 0
+    local abs = ppy-768
+    if abs > 0 then
+      movePlayerY(-abs)
+    end
+  else
+    gravity = 600
+  end
+end
+
+function update_playerYFLOAT11(playerB,float11)
+  local playerB = playerB
+  local float11 = float11
+
+  local ppx,ppyold = playerB:center() 
+  local ppy = ppyold + 2
+
+  if playerB:collidesWith(float11) then
+    gravity = 0
+    local abs = ppy-256
+    if abs > 0 then
+      movePlayerY(-abs)
+    end
+  else
+    gravity = 600
+  end
+end
+
+function update_playerYFLOAT12(playerB,float12)
+  local playerB = playerB
+  local float12 = float12
+
+  local ppx,ppyold = playerB:center() 
+  local ppy = ppyold + 2
+
+  if playerB:collidesWith(float12) then
+    gravity = 0
+    local abs = ppy-320
+    if abs > 0 then
+      movePlayerY(-abs)
+    end
+  else
+    gravity = 600
+  end
+end
+
+function update_playerYFLOAT13(playerB,float13)
+  local playerB = playerB
+  local float13 = float13
+
+  local ppx,ppyold = playerB:center() 
+  local ppy = ppyold + 2
+
+  if playerB:collidesWith(float13) then
+    gravity = 0
+    local abs = ppy-256
+    if abs > 0 then
+      movePlayerY(-abs)
+    end
+  else
+    gravity = 600
+  end
+end
+
+function update_playerYFLOAT14(playerB,float14)
+  local playerB = playerB
+  local float14 = float14
+
+  local ppx,ppyold = playerB:center() 
+  local ppy = ppyold + 2
+
+  if playerB:collidesWith(float14) then
+    gravity = 0
+    local abs = ppy-256
+    if abs > 0 then
+      movePlayerY(-abs)
+    end
+  else
+    gravity = 600
+  end
+end
+
+function update_playerYFIM(playerB,elevator)
+  local playerB = playerB
+  local elevator = elevator
+
+  local ppx,ppyold = playerB:center() 
+  local ppy = ppyold + 2
+
+  if playerB:collidesWith(elevator) then
+    gravity = 0
+    local abs = ppy-768
+    if abs > 0 then
+      movePlayerY(-abs)
+    end
+  else
+    gravity = 600
+  end
+end
+
 --[[function update_playerYMOVE1(playerB,move1,dt,move1UP,move1DOWN,dir)
   local playerB = playerB
   local move1 = move1

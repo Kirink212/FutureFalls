@@ -101,9 +101,9 @@ function player_draw()
   if player.isMoving == false then
     love.graphics.draw(tilesetIdle,tileQuadsIdle[player.anim_frame], px,py-60,0,player.dir,1, 32, 64)
   end
-  love.graphics.print(tostring(obj1),px,80)
-  love.graphics.print(tostring(player.tipo),px,90)
-  love.graphics.print(tostring(legs),px,100)
+  --love.graphics.print(tostring(obj1),px,80)
+  --love.graphics.print(tostring(player.tipo),px,90)
+  --love.graphics.print(tostring(legs),px,100)
 end
 function player_keypressed(key)
   if key == "up" and check_bottom_collide(playerB) then
