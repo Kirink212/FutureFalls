@@ -22,7 +22,6 @@ function update_playerYSTART(playerB,start)
     gravity = 600
   end
 end
-
 function update_playerYFLOOR1(playerB,floor1)
 
   --Usando a função center e somando com a altura de cada objeto e generalizando o 
@@ -907,9 +906,7 @@ function update_playerYFIM(playerB,elevator)
   else
     gravity = 600
   end
-end
-
---[[function update_playerYMOVE1(playerB,move1,dt,move1UP,move1DOWN,dir)
+end--[[function update_playerYMOVE1(playerB,move1,dt,move1UP,move1DOWN,dir)
   local playerB = playerB
   local move1 = move1
   local move1UP = move1UP

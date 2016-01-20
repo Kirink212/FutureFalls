@@ -19,6 +19,7 @@ function game_load()
   --mapa_load()
   player_load()
   nick_load()
+  --plat_load()
 end
 function game_update(dt)
   if gamestate == 0 then
@@ -34,6 +35,7 @@ function game_update(dt)
     menu_music:stop()
     player_update(dt)
     nick_update(dt)
+    --plat_update(dt)
   end
 end
 function game_draw()
@@ -41,6 +43,7 @@ function game_draw()
   if gamestate == 1 then
     --mapa_draw()
     nick_draw()
+    --plat_draw()
     player_draw()
     if pausado == 1 then
       love.graphics.setColor(0,0,0, 100)

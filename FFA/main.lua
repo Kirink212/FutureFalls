@@ -6,6 +6,7 @@ require "mapa"
 require "nick"
 require "bullet"
 require "collision"
+require "plataforma"
 local loader = require "AdvTiledLoader/Loader"
 -- set the path to the Tiled map files
 loader.path = "maps/"

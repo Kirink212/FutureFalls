@@ -51,7 +51,7 @@ function player_update(dt)
     player.dir = 1
     player.x = player.x + player.speed*dt
     player.anim_time = player.anim_time + dt -- incrementa o tempo usando dt
-    if player.anim_time > 0.1 then -- quando acumular mais de 0.1
+    if player.anim_time > 0.2 then -- quando acumular mais de 0.1
       player.anim_frame = player.anim_frame + 1 -- avança para proximo frame
       if player.anim_frame > 7 then
         player.anim_frame = 0
@@ -63,7 +63,7 @@ function player_update(dt)
     player.dir = -1
     player.x = player.x - player.speed*dt
     player.anim_time = player.anim_time + dt -- incrementa o tempo usando dt
-    if player.anim_time > 0.1 then -- quando acumular mais de 0.1
+    if player.anim_time > 0.2 then -- quando acumular mais de 0.1
       player.anim_frame = player.anim_frame + 1 -- avança para proximo frame
       if player.anim_frame > 7 then
         player.anim_frame = 0

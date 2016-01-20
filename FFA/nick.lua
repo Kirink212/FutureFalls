@@ -121,11 +121,18 @@ function nick_load()
     Enemy1S = collider:addRectangle (4544,768,576,32)
     --------------------------------------------------
     Enemy2 = collider:addRectangle (5824,64,64,64)
-    Enemy2Bullet = collider:addRectangle (5760,96,64,16)
-    --------------------------------------------------
 
-    --escada1 = collider:addRectangle(256,512,64,320)
-
+    Enemy2Bullet = collider:addRectangle (5760,96,64,16)    --escada1 = collider:addRectangle(256,512,64,320)
+    ----------------------------------------------------
+    plat = {
+    x = 4160,
+    y = 512, 
+    dir = -1,
+    image = love.graphics.newImage("maps/plataforma1.png"),
+    collides = false
+    }
+    plat_col = collider:addRectangle(plat.x,plat.y,100,20)
+    pos_tempy = plat.y
 
 
 
@@ -276,15 +283,21 @@ function nick_update(dt)
     update_playerYFLOAT8(playerB,float8)
     update_playerYFLOAT9(playerB,float9)
     update_playerYFLOAT10(playerB,float10)
-
-    update_playerYFLOAT11(playerB,float11)
+update_playerYFLOAT11(playerB,float11)
     update_playerYFLOAT12(playerB,float12)
     update_playerYFLOAT13(playerB,float13)
     update_playerYFLOAT14(playerB,float14)
 
-    update_playerYFIM(playerB,elevator)
-  --update_playerYMOVE1(playerB,move1,dt,move1UP,move1DOWN,dir)
-
+    update_playerYFIM(playerB,elevator)  --update_playerYMOVE1(playerB,move1,dt,move1UP,move1DOWN,dir)
+    
+    if plat.y <  pos_tempy - 256 then
+      plat.dir = 1
+    end
+    if plat.y > pos_tempy + 192 then
+      plat.dir = -1
+    end
+    plat.y = plat.y + 100*plat.dir*dt
+    plat_col:move(0,100*plat.dir*dt)
     if playerB:collidesWith(pit1) or playerB:collidesWith(pit2) then
       death = true
     end
@@ -469,13 +482,15 @@ function nick_draw()
 
     Enemy2:draw("line")
     Enemy2Bullet:draw("line")
-
+    love.graphics.draw(plat.image, plat.x, plat.y)
+    love.graphics.setColor(255, 255, 255)
+    plat_col:draw("line")
     elevator:draw("fill")
+    plat_draw()
     
-    wall1:draw("line")
+wall1:draw("line")
     
     ]]--
-
     local px,py = playerB:center()
 
     --[[    love.graphics.print(px,px,10)
@@ -483,10 +498,7 @@ function nick_draw()
     love.graphics.print(tx,px,30)
     love.graphics.print(tostring(obj1),px,40)
     love.graphics.print(tostring(tiro),px,50)
-    ]]--
-
-
-    local obx,oby = obj1Hit:center()
+    ]]--          local obx,oby = obj1Hit:center()
     if not obj1 then
     love.graphics.draw(obj1Img,obx-32,oby-32)
     end
@@ -570,10 +582,8 @@ function check_bottom_collide(playerB)
     or playerB:collidesWith(float2) or playerB:collidesWith(float3) or playerB:collidesWith(floor7) or playerB:collidesWith(float6) or playerB:collidesWith(float7) or playerB:collidesWith(float8) or playerB:collidesWith(float9)
     or playerB:collidesWith(float10) or playerB:collidesWith(floor9)or playerB:collidesWith(floor10) or playerB:collidesWith(floor11) or playerB:collidesWith(floor12) or playerB:collidesWith(floor13) or playerB:collidesWith(floor14)
     or playerB:collidesWith(floor16) or playerB:collidesWith(floor17)or playerB:collidesWith(floor18) or playerB:collidesWith(floor19) or playerB:collidesWith(floor20) or playerB:collidesWith(floor21) or playerB:collidesWith(floor22)
-    or playerB:collidesWith(floor23) or playerB:collidesWith(floor24)or playerB:collidesWith(floor24) or playerB:collidesWith(float4) or playerB:collidesWith(float5) or playerB:collidesWith(floor25) or playerB:collidesWith(floor26)
-    or playerB:collidesWith(floor27) or playerB:collidesWith(floor28) or playerB:collidesWith(floor29) or playerB:collidesWith(floor30) or playerB:collidesWith(floor31) or playerB:collidesWith(floor32) or playerB:collidesWith(floor33)
-    or playerB:collidesWith(floor34) or playerB:collidesWith(float11) or playerB:collidesWith(float12) or playerB:collidesWith(float13) or playerB:collidesWith(float14)
-       then
+or playerB:collidesWith(floor23) or playerB:collidesWith(floor24)or playerB:collidesWith(floor24) or playerB:collidesWith(float4) or playerB:collidesWith(float5) or playerB:collidesWith(floor25) or playerB:collidesWith(floor26)or playerB:collidesWith(floor27) or playerB:collidesWith(floor28) or playerB:collidesWith(floor29) or playerB:collidesWith(floor30) or playerB:collidesWith(floor31) or playerB:collidesWith(floor32) or playerB:collidesWith(floor33)
+    or playerB:collidesWith(floor34) or playerB:collidesWith(float11) or playerB:collidesWith(float12) or playerB:collidesWith(float13) or playerB:collidesWith(float14)       then
         return true
     else
         return false
@@ -609,7 +619,7 @@ function check_left_collide(playerL)
     or playerL:collidesWith(floor8) or playerL:collidesWith(floor9) or playerL:collidesWith(floor10) or playerL:collidesWith(floor11) or playerL:collidesWith(floor12) or playerL:collidesWith(floor13) or playerL:collidesWith(floor14) 
     or playerL:collidesWith(floor15) or playerL:collidesWith(floor16) or playerL:collidesWith(floor17) or playerL:collidesWith(floor18) or playerL:collidesWith(floor19) or playerL:collidesWith(floor20) or playerL:collidesWith(floor21)
     or playerL:collidesWith(floor22) or playerL:collidesWith(floor23) or playerL:collidesWith(floor24) or playerL:collidesWith(floor25) or playerL:collidesWith(floor26) or playerL:collidesWith(floor27) or playerL:collidesWith(floor28) 
-    or playerL:collidesWith(floor29) or playerL:collidesWith(floor30) or playerL:collidesWith(floor31) or playerL:collidesWith(floor32) or playerL:collidesWith(floor32) or playerL:collidesWith(floor33) or playerL:collidesWith(floor34)  
+    or playerL:collidesWith(floor29) or playerL:collidesWith(floor30) or playerL:collidesWith(floor31) or playerL:collidesWith(floor32) or playerL:collidesWith(floor32) or playerL:collidesWith(floor33) or playerL:collidesWith(floor34)
     or playerL:collidesWith(wall2)
       then
     return true
@@ -859,6 +869,6 @@ function update_tetoY(playerx)
   if playerx > 7808 and playerB:collidesWith(float14) then
     moveTeto(playerx,256+pulo128)
   end
-
 end
 
+end
