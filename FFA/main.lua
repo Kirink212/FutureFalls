@@ -14,7 +14,7 @@ local HC = require "HardonCollider"
 local shapes = require "hardoncollider.shapes"
 
 function love.load()
-  --love.window.setMode(1280, 700, {resizable = true})
+  love.window.setMode(1280, 960, {resizable = true})
   legs = false
   game_load()
 end

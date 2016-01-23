@@ -36,7 +36,7 @@ function player_load()
   loadTileQuads(tilesetIdle, 0, 2, tileQuadsIdle)
 end
 function player_update(dt)
-  --py = py + player.speedy*dt+(gravity*(dt)*dt)/2
+  --player.y = player.y + player.speedy*dt+(gravity*(dt)*dt)/2
   --player.speedy = player.speedy + gravity*dt
   player.anim_time = player.anim_time + dt -- incrementa o tempo usando dt
   if player.anim_time > 0.5 then -- quando acumular mais de 0.9
@@ -74,42 +74,42 @@ function player_update(dt)
   if legs then
     player.tipo = 1
   end
-  --[[if py > 70 - (player.height)/2 then
-    py = 700 - (player.height)/2
+  --[[if player.y > 70 - (player.height)/2 then
+    player.y = 700 - (player.height)/2
   end
   --if player.jump then
-    --py = py - player.speedy*dt +(gravity*dt*dt)/2
+    --player.y = player.y - player.speedy*dt +(gravity*dt*dt)/2
   --else
   --end]]--
 end
 function player_draw()
-  local px,py = playerB:center()
+  --local player.x,player.y = playerB:center()
   --Desenhando o personagem principal
   if player.dir == 1 and player.isMoving then
     if player.tipo == 0 then
-      love.graphics.draw(tilesetImage,tileQuadsWalk[player.anim_frame], px,py-60,0,player.dir, 1, 32, 64)
+      love.graphics.draw(tilesetImage,tileQuadsWalk[player.anim_frame], player.x,player.y-60,0,player.dir, 1, 32, 64)
     elseif player.tipo == 1 then
-      love.graphics.draw(tilesetLegs,tileQuadsWalkLegs[player.anim_frame], px,py-60,0,player.dir, 1, 32, 64)
+      love.graphics.draw(tilesetLegs,tileQuadsWalkLegs[player.anim_frame], player.x,player.y-60,0,player.dir, 1, 32, 64)
     end
   elseif player.dir == -1 and player.isMoving then
     if player.tipo == 0 then
-      love.graphics.draw(tilesetImage,tileQuadsWalk[player.anim_frame], px,py-60,0,player.dir, 1, 32, 64)
+      love.graphics.draw(tilesetImage,tileQuadsWalk[player.anim_frame], player.x,player.y-60,0,player.dir, 1, 32, 64)
     elseif player.tipo == 1 then
-      love.graphics.draw(tilesetLegs,tileQuadsWalkLegs[player.anim_frame], px,py-60,0,player.dir, 1, 32, 64)
+      love.graphics.draw(tilesetLegs,tileQuadsWalkLegs[player.anim_frame], player.x,player.y-60,0,player.dir, 1, 32, 64)
     end
   end
   if player.isMoving == false then
-    love.graphics.draw(tilesetIdle,tileQuadsIdle[player.anim_frame], px,py-60,0,player.dir,1, 32, 64)
+    love.graphics.draw(tilesetIdle,tileQuadsIdle[player.anim_frame], player.x,player.y-60,0,player.dir,1, 32, 64)
   end
-  --love.graphics.print(tostring(obj1),px,80)
-  --love.graphics.print(tostring(player.tipo),px,90)
-  --love.graphics.print(tostring(legs),px,100)
+  --love.graphics.print(tostring(obj1),player.x,80)
+  --love.graphics.print(tostring(player.tipo),player.x,90)
+  --love.graphics.print(tostring(legs),player.x,100)
 end
 function player_keypressed(key)
-  if key == "up" and check_bottom_collide(playerB) then
-    jump = true
+  if key == "up" then
+    player.jump = true
   else 
-    jump = false
+    player.jump = false
   end
 end
 function player_keyreleased(key)

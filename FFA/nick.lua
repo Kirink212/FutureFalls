@@ -23,7 +23,7 @@ require "bullet"
 
 function nick_load()
     love.window.setTitle("Future Falls : Ascension")
-    love.window.setMode(1280,960, {resizable=false})
+    love.window.setMode(1280,960, {resizable=true})
 
     ---Load no Level a partir do arquivo .tmx
     map = loader.load("L1v1.tmx")
@@ -498,7 +498,8 @@ wall1:draw("line")
     love.graphics.print(tx,px,30)
     love.graphics.print(tostring(obj1),px,40)
     love.graphics.print(tostring(tiro),px,50)
-    ]]--          local obx,oby = obj1Hit:center()
+    ]]--          
+    local obx,oby = obj1Hit:center()
     if not obj1 then
     love.graphics.draw(obj1Img,obx-32,oby-32)
     end
@@ -869,6 +870,4 @@ function update_tetoY(playerx)
   if playerx > 7808 and playerB:collidesWith(float14) then
     moveTeto(playerx,256+pulo128)
   end
-end
-
 end

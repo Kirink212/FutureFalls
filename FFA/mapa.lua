@@ -1,4 +1,4 @@
-mapa={}
+local mapa={}
 local tileQuadsMapa = {}
 local tileSize = 64
 
@@ -15,6 +15,7 @@ function LoadMap(filename)
   file:close() 
 end
 function loadTileQuadsMap(tileset, nx, ny, tileQuads)
+  love.graphics.print("Piroca", 200, 300)
   local count = 0
   for i = 0, nx, 1 do
     for j = 0, ny, 1 do
@@ -26,16 +27,16 @@ end
 function mapa_load()
   tilesetMapa = love.graphics.newImage("maps/Tileset2.png")
   LoadMap("fase1.txt")
-  loadTileQuadsMap(tilesetMapa, 1, 1, tileQuadsMapa)
+  loadTileQuadsMap(tilesetMapa, 2, 2, tileQuadsMapa)
 end
 function mapa_draw()
-  for i=0, 10, 1 do --Percorre a matriz e desenha quadrados imagens
+  for i=0, 10, 1 do
+    --Percorre a matriz e desenha quadrados imagens
     for j=0, 14, 1 do
       if (mapa[i][j] == "F") then
         --love.graphics.draw(tileset,tileQuads[1],(j * tileSize), (i * tileSize))
       elseif (mapa[i][j] == "C") then
-        love.graphics.print("Piroca", 200, 300)
-        love.graphics.draw(tilesetMapa,tileQuadsMapa[1],(j * tileSize), (i * tileSize))
+        love.graphics.draw(tilesetMapa,tileQuadsMapa[1],(i * tileSize), (j * tileSize))
       elseif (mapa[i][j] == "E") then
         --love.graphics.draw(tileset,tileQuads[0],(j * tileSize), (i * tileSize))
       end

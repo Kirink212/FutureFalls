@@ -1,5 +1,30 @@
 --[[ Este arquivo será utilizado somente para coisas que tiverem relação com o game em si, ou seja,
 todas as funções gerais do jogo, todas as funções relacionadas com gamestate "playing" e talz estarão aqui !!]]--
+local mapa={}
+local tileQuadsMapa = {}
+local tileSize = 64
+
+function LoadMap(filename) 
+  local file = io.open(filename) 
+  local i = 0 
+  for line in file:lines() do 
+    mapa[i] = {} 
+    for j=0, #line, 1 do 
+      mapa[i][j] = line:sub(j,j) 
+    end 
+    i = i + 1 
+  end 
+  file:close() 
+end
+function loadTileQuadsMap(tileset, nx, ny, tileQuads)
+  local count = 0
+  for i = 0, nx, 1 do
+    for j = 0, ny, 1 do
+      tileQuads[count] = love.graphics.newQuad(j * tileSize ,i * tileSize, tileSize, tileSize,tileset:getWidth(),tileset:getHeight())
+      count = count + 1
+    end
+  end
+end
 function game_animation(dt, anim_time, each_frame_time, anim_frame, number_frame)
   anim_time = anim_time + dt -- incrementa o tempo usando dt
   if anim_time > each_frame_time then -- quando acumular mais de 0.1
@@ -16,9 +41,9 @@ function game_load()
   pressionado = 0
   playing_music = love.audio.newSource("FFA_-_Música_de_Fase.mp3", "static")
   menu_load()
-  --mapa_load()
+  mapa_load()
   player_load()
-  nick_load()
+  --nick_load()
   --plat_load()
 end
 function game_update(dt)
@@ -34,22 +59,22 @@ function game_update(dt)
     playing_music:play()
     menu_music:stop()
     player_update(dt)
-    nick_update(dt)
+    --nick_update(dt)
     --plat_update(dt)
   end
 end
 function game_draw()
-  local px,py = playerB:center()
+  --local px,py = playerB:center()
   if gamestate == 1 then
-    --mapa_draw()
-    nick_draw()
+    --nick_draw()
     --plat_draw()
     player_draw()
+    mapa_draw()
     if pausado == 1 then
       love.graphics.setColor(0,0,0, 100)
       love.graphics.rectangle("fill", 0, 0, 12800, 960)
       love.graphics.setColor(255,255,255)
-      love.graphics.draw(pause, px + 300, 200, 0, 3, 3)
+      love.graphics.draw(pause, player.x + 300, 200, 0, 3, 3)
       --love.graphics.print(tostring(pausado), 400, 500)
     end
   elseif gamestate == 0 then
